@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Кто ты по стилю этнографического письма?</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+    h1 { text-align: center; }
+    .question { margin-bottom: 20px; }
+    .result { margin-top: 30px; font-weight: bold; font-size: 1.2em; }
+    button { padding: 10px 20px; font-size: 1em; }
+  </style>
+</head>
+<body>
+<h1>Кто ты по стилю этнографического письма?</h1>
+<form id="quizForm">
+  <div class="question">
+    <p>1. Что ты чаще записываешь в поле?</p>
+    <label><input type="radio" name="q1" value="A"> Детали действий</label><br>
+    <label><input type="radio" name="q1" value="B"> Смыслы и структуры</label><br>
+    <label><input type="radio" name="q1" value="C"> Собственные чувства</label><br>
+    <label><input type="radio" name="q1" value="D"> Цитаты участников</label><br>
+    <label><input type="radio" name="q1" value="E"> Сенсорные образы</label><br>
+    <label><input type="radio" name="q1" value="F"> Личные ассоциации</label><br>
+    <label><input type="radio" name="q1" value="G"> Власть и исключение</label>
+  </div>
+  <div class="question">
+    <p>2. Как ты начинаешь писать текст?</p>
+    <label><input type="radio" name="q2" value="A"> С описания сцены</label><br>
+    <label><input type="radio" name="q2" value="B"> С теоретического введения</label><br>
+    <label><input type="radio" name="q2" value="C"> С фразы "Я…"</label><br>
+    <label><input type="radio" name="q2" value="D"> С истории участника</label><br>
+    <label><input type="radio" name="q2" value="E"> С образа или ощущения</label><br>
+    <label><input type="radio" name="q2" value="F"> С воспоминания</label><br>
+    <label><input type="radio" name="q2" value="G"> С факта социального неравенства</label>
+  </div>
+  <div class="question">
+    <p>3. Что тебе ближе всего?</p>
+    <label><input type="radio" name="q3" value="A"> Плотное наблюдение</label><br>
+    <label><input type="radio" name="q3" value="B"> Анализ и теория</label><br>
+    <label><input type="radio" name="q3" value="C"> Рефлексия</label><br>
+    <label><input type="radio" name="q3" value="D"> Нарратив</label><br>
+    <label><input type="radio" name="q3" value="E"> Чувственное восприятие</label><br>
+    <label><input type="radio" name="q3" value="F"> Личный опыт</label><br>
+    <label><input type="radio" name="q3" value="G"> Критика систем</label>
+  </div>
+  <div class="question">
+    <p>4. Когда ты редактируешь текст, ты стараешься…</p>
+    <label><input type="radio" name="q4" value="A"> Уточнить детали</label><br>
+    <label><input type="radio" name="q4" value="B"> Выстроить аргумент</label><br>
+    <label><input type="radio" name="q4" value="C"> Добавить чувства</label><br>
+    <label><input type="radio" name="q4" value="D"> Сделать рассказ живым</label><br>
+    <label><input type="radio" name="q4" value="E"> Усилить образы</label><br>
+    <label><input type="radio" name="q4" value="F"> Быть предельно честным</label><br>
+    <label><input type="radio" name="q4" value="G"> Подчеркнуть власть</label>
+  </div>
+  <div class="question">
+    <p>5. Какой комментарий ты бы хотел услышать от читателя?</p>
+    <label><input type="radio" name="q5" value="A"> “Я будто там побывал(а)!”</label><br>
+    <label><input type="radio" name="q5" value="B"> “Теперь мне всё стало понятно”</label><br>
+    <label><input type="radio" name="q5" value="C"> “Я почувствовал твою уязвимость”</label><br>
+    <label><input type="radio" name="q5" value="D"> “Это как рассказ”</label><br>
+    <label><input type="radio" name="q5" value="E"> “Это красиво и необычно”</label><br>
+    <label><input type="radio" name="q5" value="F"> “Это очень лично и глубоко”</label><br>
+    <label><input type="radio" name="q5" value="G"> “Это дало мне гнев и понимание”</label>
+  </div>
+  <button type="button" onclick="showResult()">Получить результат</button>
+</form>
+<div class="result" id="result"></div>
+<script>
+function showResult() {
+  const form = document.forms["quizForm"];
+  const values = [form.q1.value, form.q2.value, form.q3.value, form.q4.value, form.q5.value];
+  const counts = {};
+  values.forEach(v => {
+    if (v) counts[v] = (counts[v] || 0) + 1;
+  });
+  let max = 0;
+  let result = "";
+  for (const key in counts) {
+    if (counts[key] > max) {
+      max = counts[key];
+      result = key;
+    }
+  }
+  const descriptions = {
+    A: "Описатель: ты внимателен к сценам, деталям, движениям.",
+    B: "Аналитик: ты строишь логику и ищешь закономерности.",
+    C: "Рефлексивный исследователь: ты исследуешь себя в поле.",
+    D: "Нарративист: ты собираешь истории и превращаешь их в рассказ.",
+    E: "Поэт с поля: ты видишь звуки, цвета, метафоры.",
+    F: "Автоэтнограф: ты описываешь себя как объект исследования.",
+    G: "Критик: ты пишешь о власти и неравенстве."
+  };
+  document.getElementById("result").innerText = descriptions[result] || "Пожалуйста, ответьте на все вопросы.";
+}
+</script>
+</body>
+</html>
